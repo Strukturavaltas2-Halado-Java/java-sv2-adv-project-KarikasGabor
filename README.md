@@ -14,7 +14,7 @@ Vizsgaremeknek a Szövetség nyilvántartó rendszerének egy egyszerűsített v
 Az `Egyesület (Organization)` entitás a következő attribútumokkal rendelkezik:
 
 * azonosító (`orgId`)
-* név (`name`) (nem lehet üres)
+* név (`orgName`) (nem lehet üres)
 * cím (`address`) (nem lehet üres)
 * kapcsolattartó (`contact`) (nem lehet üres, legalább 2 tagból áll)
 * email (`email`) (valid email formátum)
