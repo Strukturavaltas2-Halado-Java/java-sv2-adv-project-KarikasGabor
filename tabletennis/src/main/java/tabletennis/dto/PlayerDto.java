@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tabletennis.model.LicenseType;
-import tabletennis.model.Organization;
 
 import java.time.LocalDate;
 

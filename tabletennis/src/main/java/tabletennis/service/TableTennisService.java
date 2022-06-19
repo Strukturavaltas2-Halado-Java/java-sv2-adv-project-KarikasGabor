@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import tabletennis.dto.*;
+import tabletennis.exception.OrganizationNotFoundException;
+import tabletennis.exception.PlayerListIsNotEmptyException;
+import tabletennis.exception.PlayerNotFoundException;
 import tabletennis.model.LicenseType;
 import tabletennis.model.Organization;
 import tabletennis.dto.OrganizationListDto;
@@ -33,7 +36,7 @@ public class TableTennisService {
                 createPlayerCommand.getBirthDate(),
                 createPlayerCommand.getMotherName());
         if (orgId.isPresent()) {
-            Organization org = organizationRepository.findById(orgId.get()).orElseThrow(() -> new IllegalArgumentException("Organization not found"));
+            Organization org = organizationRepository.findById(orgId.get()).orElseThrow(() -> new OrganizationNotFoundException(orgId.get()));
             player.setOrganization(org);
         }
         player.setLicenseDate(LocalDate.now());
@@ -61,7 +64,7 @@ public class TableTennisService {
     }
 
     public PlayerDto getPlayerById(long playerId) {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new IllegalArgumentException("Player not found"));
+        Player player = playerRepository.findById(playerId).orElseThrow(() -> new PlayerNotFoundException(playerId));
         return modelMapper.map(player, PlayerDto.class);
     }
 
@@ -72,7 +75,7 @@ public class TableTennisService {
     }
 
     public OrganizationDto getOrganizationById(long orgId, Optional<String> full, Optional<String> valid) {
-        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new IllegalArgumentException("Organization not found"));
+        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new OrganizationNotFoundException(orgId));
         OrganizationDto organizationDto = modelMapper.map(organization, OrganizationDto.class);
         organizationDto.setPlayers(organization.getPlayers().stream()
                 .filter(p -> full.isEmpty() || !full.get().equalsIgnoreCase("true") || p.getLicenseType().equals(LicenseType.TELJESKÖRŰ))
@@ -82,19 +85,19 @@ public class TableTennisService {
     }
 
     public PlayerDto validateLicense(long playerId) {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new IllegalArgumentException("Player not found"));
+        Player player = playerRepository.findById(playerId).orElseThrow(() -> new PlayerNotFoundException(playerId));
         player.setValidity();
         return modelMapper.map(player, PlayerDto.class);
     }
 
     public void deletePlayer(long playerId) {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new IllegalArgumentException("Player not found"));
+        Player player = playerRepository.findById(playerId).orElseThrow(() -> new PlayerNotFoundException(playerId));
         playerRepository.delete(player);
     }
 
     public PlayerDto transferPlayer(long playerId, long orgId) {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new IllegalArgumentException("Player not found"));
-        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new IllegalArgumentException("Organization not found"));
+        Player player = playerRepository.findById(playerId).orElseThrow(() -> new PlayerNotFoundException(playerId));
+        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new OrganizationNotFoundException(orgId));
         player.setOrganization(organization);
         player.setValidity();
         player.setLicenseDate(LocalDate.now());
@@ -102,25 +105,24 @@ public class TableTennisService {
     }
 
     public OrganizationDto deletePlayerFromOrganization(long orgId, long playerId) {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new IllegalArgumentException("Player not found"));
-        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new IllegalArgumentException("Organization not found"));
+        Player player = playerRepository.findById(playerId).orElseThrow(() -> new PlayerNotFoundException(playerId));
+        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new OrganizationNotFoundException(orgId));
         organization.getPlayers().remove(player);
         player.setOrganization(null);
         return modelMapper.map(organization, OrganizationDto.class);
     }
 
     public void deleteOrganization(long orgId) {
-        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new IllegalArgumentException("Organization not found"));
+        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new OrganizationNotFoundException(orgId));
         if (organization.getPlayers().size() != 0) {
-            throw new IllegalStateException("Player list is not empty!");
+            throw new PlayerListIsNotEmptyException(orgId);
         } else {
             organizationRepository.delete(organization);
         }
-
     }
 
     public OrganizationDto modifyOrganization(long orgId, CreateOrganizationCommand createOrganizationCommand) {
-        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new IllegalArgumentException("Organization not found"));
+        Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new OrganizationNotFoundException(orgId));
         organization.setOrgName(createOrganizationCommand.getOrgName());
         organization.setAddress(createOrganizationCommand.getAddress());
         organization.setContact(createOrganizationCommand.getContact());
