@@ -29,7 +29,6 @@ Végpontok:
 | GET          | `"/api/organizations/{orgId}"`         | lekérdezi egy klub adatait `id` alapján a játékoslistával együtt<br/>ha van a lekérdezésben 'tk=true' paraméter,akkor csak a teljeskörű játékengedéllyel rendelkezőket,<br/>ha 'valid=true', akkor csak az érvényes engedéllyel rendelkezőket listázza |
 | POST         | `"/api/organizations"`                 | létrehoz egy új klubot (üres játékoslistával)                                                                                                                                                                                                          |
 | POST         | `"/api/organizations/{orgId}"`         | módosítja a klub adatait                                                                                                                                                                                                                               |
-| POST         | `"/api/organizations/{orgId}/{playerId}"` | át/leigazolás (érvényesíti is a játékengedélyt)                                                                                                                                                                                                        |
 | DEL          | `"/api/organizations/{orgId}/{playerId}"` | játékos eltávolítása az egyesületből                                                                                                                                                                                                                   |
 | DEL          | `"/api/organizations/{orgId}"`            | egyesület törlése, amit csak akkor lehet, ha nincs leigazolt játékosa                                                                                                                                                                                 |
 
@@ -53,13 +52,14 @@ Egy egyesületnek több játékosa lehet, egy játékos viszont csak 1 egyesüle
 
 Végpontok:
 
-| HTTP metódus | Végpont                     | Leírás                                                                                           |
-|--------------|-----------------------------|--------------------------------------------------------------------------------------------------|
-| GET          | `"/api/players"`            | lekérdezi az összes játékos nevét+azonosítóját                                                   |
-| GET          | `"/api/players/{playerId}"`       | lekérdezi egy játékos adatait `playerId` alapján                                                 |
-| POST         | `"/api/players"`            | létrehoz egy új játékost (klubbal [?org={orgId}] vagy klub nélkül)                               |
-| POST         | `"/api/players/{playerId}"`       | érvényesíti a játékengedélyt következő június 30-ig és beállítja a j.e. típusát dátumtól függően |
-| DEL          | `"/api/players/{playerId}"`       | játékos törlése                                                                                  |
+| HTTP metódus | Végpont                                   | Leírás                                                                                           |
+|--------------|-------------------------------------------|--------------------------------------------------------------------------------------------------|
+| GET          | `"/api/players"`                          | lekérdezi az összes játékos nevét+azonosítóját                                                   |
+| GET          | `"/api/players/{playerId}"`               | lekérdezi egy játékos adatait `playerId` alapján                                                 |
+| POST         | `"/api/players"`                          | létrehoz egy új játékost (klubbal [?org={orgId}] vagy klub nélkül)                               |
+| POST         | `"/api/players/{playerId}"`               | érvényesíti a játékengedélyt következő június 30-ig és beállítja a j.e. típusát dátumtól függően |
+| POST         | `"/api/organizations/{playerId}/{orgId}"` | át/leigazolás (érvényesíti is a játékengedélyt)                                                  |
+| DEL          | `"/api/players/{playerId}"`               | játékos törlése                                                                                  |
 
 A játékengedélyek érvényessége maximum 1 év, minden év június 30-án lejárnak, meg kell újítani.  
 Le/átigazolni az év bármely szakaszában lehet, de csak július 1. és december 31. között kap TELJESKÖRŰt (csak ezzel lehet

@@ -1,0 +1,94 @@
+### Egyesületek listázása
+GET http://localhost:8080/api/organizations
+Accept: application/json
+
+### Adott id-jű egyesület adatai
+GET http://localhost:8080/api/organizations/3
+Accept: application/json
+
+### Adott id-jű egyesület adatai (csak a teljeskörű és/vagy érvényes engedélyű játékosok)
+GET http://localhost:8080/api/organizations/1?tk=true
+Accept: application/json
+
+### Játékosok listázása
+GET http://localhost:8080/api/players
+Accept: application/json
+
+### Adott id-jű játékos adatai
+GET http://localhost:8080/api/players/5
+Accept: application/json
+
+### Játékos létrehozása egyesület nélkül
+POST http://localhost:8080/api/players
+Content-Type: application/json
+
+{
+  "playerName" : "Karikás Gábor",
+  "birthDate": "1968-08-09",
+  "motherName" : "Szöllősy Ibolya"
+}
+### Játékos létrehozása egyesülettel
+POST http://localhost:8080/api/players?org=3
+Content-Type: application/json
+
+{
+  "playerName" : "John Doe",
+  "birthDate": "2000-04-01",
+  "motherName" : "Jane Doe"
+}
+
+### Egyesület létrehozása
+POST http://localhost:8080/api/organizations
+Content-Type: application/json
+
+{
+  "orgName" : "BVSC-Zugló",
+  "address": "1142 Budapest, Szőnyi út 2.",
+  "contact" : "Szentpáli Gábor",
+  "email" : "asztalitenisz@bvsc.hu",
+  "telNumber" : "+36205802519"
+}
+
+### Egyesület létrehozása
+POST http://localhost:8080/api/organizations
+Content-Type: application/json
+
+{
+  "orgName" : "Postás SE",
+  "address": "1142 Budapest, Róna u. 86.",
+  "contact" : "Rostás Gábor",
+  "email" : "postasse@gmail.com",
+  "telNumber" : "+3611234567"
+}
+
+### Egyesület módosítása
+POST http://localhost:8080/api/organizations/3
+Content-Type: application/json
+
+{
+  "orgName" : "Postás SE",
+  "address": "1142 Budapest, Róna u. 86-100.",
+  "contact" : "Vörös József",
+  "email" : "postasse@gmail.com",
+  "telNumber" : "+36112345678"
+}
+
+### Adott id-jű játékos engedélyének érvényesítése
+POST http://localhost:8080/api/players/5
+Content-Type: application/json
+
+### Adott id-jű játékos átigazolása az adott id-jű egyesületbe
+POST http://localhost:8080/api/players/6/2
+Content-Type: application/json
+
+### Játékos törlése
+DELETE http://localhost:8080/api/players/10
+Content-Type: application/json
+
+### Adott id-jű egyesületből adott id-jű játékos egyesületi tagságának törlése
+DELETE http://localhost:8080/api/organizations/2/11
+Content-Type: application/json
+
+### Egyesület törlése
+DELETE http://localhost:8080/api/organizations/2
+Content-Type: application/json
