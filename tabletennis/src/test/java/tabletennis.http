@@ -15,7 +15,7 @@ GET http://localhost:8080/api/players
 Accept: application/json
 
 ### Adott id-jű játékos adatai
-GET http://localhost:8080/api/players/2
+GET http://localhost:8080/api/players/62
 Accept: application/json
 
 ### Játékos létrehozása egyesület nélkül
@@ -23,12 +23,12 @@ POST http://localhost:8080/api/players
 Content-Type: application/json
 
 {
-  "playerName" : "Karikás Gábor",
-  "birthDate": "2068-08-09",
-  "motherName" : "Szöllősy Ibolya"
+  "playerName" : "KarikásGábor",
+  "birthDate": "2168-08-09",
+  "motherName" : ""
 }
 ### Játékos létrehozása egyesülettel
-POST http://localhost:8080/api/players?org=3
+POST http://localhost:8080/api/players?org=16
 Content-Type: application/json
 
 {

@@ -1,4 +1,4 @@
-package tabletennis.dto;
+package tabletennis.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,22 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tabletennis.model.LicenseType;
 import tabletennis.model.Organization;
-import tabletennis.validation.Name;
 
-import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreatePlayerCommand {
+public class CreatePlayerCommandForTest {  // ez kizárólag a teszteléshez, hogy minden attribútumnak lehessen értéket adni
 
-    @Name
     private String playerName;
-    @Past(message = "The birthday must be a past date")
     private LocalDate birthDate;
-    @Name
     private String motherName;
-
+    private Organization organization;
+    private LocalDate licenseDate;
+    private LocalDate licenseValidityDate;
+    private LicenseType licenseType;
 }
