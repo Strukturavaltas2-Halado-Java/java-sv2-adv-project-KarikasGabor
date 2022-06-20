@@ -28,7 +28,7 @@ Végpontok:
 | GET          | `"/api/organizations"`                 | lekérdezi az összes klub nevét és azonosítóját                                                                                                                                                                                                         |
 | GET          | `"/api/organizations/{orgId}"`         | lekérdezi egy klub adatait `id` alapján a játékoslistával együtt<br/>ha van a lekérdezésben 'tk=true' paraméter,akkor csak a teljeskörű játékengedéllyel rendelkezőket,<br/>ha 'valid=true', akkor csak az érvényes engedéllyel rendelkezőket listázza |
 | POST         | `"/api/organizations"`                 | létrehoz egy új klubot (üres játékoslistával)                                                                                                                                                                                                          |
-| POST         | `"/api/organizations/{orgId}"`         | módosítja a klub adatait                                                                                                                                                                                                                               |
+| PUT          | `"/api/organizations/{orgId}"`         | módosítja a klub adatait                                                                                                                                                                                                                               |
 | DEL          | `"/api/organizations/{orgId}/{playerId}"` | játékos eltávolítása az egyesületből                                                                                                                                                                                                                   |
 | DEL          | `"/api/organizations/{orgId}"`            | egyesület törlése, amit csak akkor lehet, ha nincs leigazolt játékosa                                                                                                                                                                                 |
 
@@ -45,7 +45,7 @@ A `Játékos (Player)` entitás a következő attribútumokkal rendelkezik:
 * aktuális egyesülete (`org`)
 * igazolás dátuma (`licenseDate`) (leigazolás/átigazolás dátuma)
 * játékengedély érvényessége (`licenseValidityDate`)
-* játékengedély típusa (`licenseType`) (ez lehet TELJESKÖRŰ vagy EGYÉNI)
+* játékengedély típusa (`licenseType`) (ez lehet FULL (teljeskörű) vagy INDIVIDUAL (egyéni))
 
 Az `Egyesület` és a `Játékos` entitások között kétirányú, 1-n kapcsolat van.  
 Egy egyesületnek több játékosa lehet, egy játékos viszont csak 1 egyesülethez lehet leigazolva.
