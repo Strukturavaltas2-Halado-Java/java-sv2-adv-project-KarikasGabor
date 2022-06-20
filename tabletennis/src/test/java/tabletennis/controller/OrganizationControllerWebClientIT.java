@@ -36,7 +36,7 @@ class OrganizationControllerWebClientIT {
 
                         LocalDate.of(2020, 9, 2),
                         LocalDate.of(2021, 6, 30),
-                        LicenseType.TELJESKÖRŰ))
+                        LicenseType.FULL))
                 .exchange()
                 .expectBody(PlayerDto.class).returnResult().getResponseBody();
 
@@ -49,7 +49,7 @@ class OrganizationControllerWebClientIT {
                         null,
                         LocalDate.of(2021, 9, 2),
                         LocalDate.of(2022, 6, 30),
-                        LicenseType.TELJESKÖRŰ))
+                        LicenseType.FULL))
                 .exchange();
 
         webTestClient.post()
@@ -61,7 +61,7 @@ class OrganizationControllerWebClientIT {
                         null,
                         LocalDate.of(2022, 3, 1),
                         LocalDate.of(2022, 6, 30),
-                        LicenseType.EGYÉNI))
+                        LicenseType.INDIVIDUAL))
                 .exchange();
 
         org = webTestClient.post()

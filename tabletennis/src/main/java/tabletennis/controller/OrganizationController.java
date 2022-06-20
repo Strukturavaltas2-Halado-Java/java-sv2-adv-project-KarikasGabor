@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import tabletennis.dto.CreateOrganizationCommand;
+import tabletennis.dto.ModifyOrganizationCommand;
 import tabletennis.dto.OrganizationDto;
 import tabletennis.dto.OrganizationListDto;
 import tabletennis.service.TableTennisService;
@@ -29,11 +30,11 @@ public class OrganizationController {
         return service.createOrganization(createOrganizationCommand);
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Modification of organization's data")
-    public OrganizationDto createOrganization(@Valid @PathVariable("id") long orgId, @Valid @RequestBody CreateOrganizationCommand createOrganizationCommand) {
-        return service.modifyOrganization(orgId, createOrganizationCommand);
+    public OrganizationDto modifyOrganization(@Valid @PathVariable("id") long orgId, @Valid @RequestBody ModifyOrganizationCommand modifyOrganizationCommand) {
+        return service.modifyOrganization(orgId, modifyOrganizationCommand);
     }
 
     @GetMapping

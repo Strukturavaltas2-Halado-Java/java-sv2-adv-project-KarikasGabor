@@ -42,7 +42,7 @@ public class Player {
 
     @Column(name = "license_type")
     @Enumerated(EnumType.STRING)
-    private LicenseType licenseType; //(ez lehet TELJESKÖRŰ vagy EGYÉNI)
+    private LicenseType licenseType; //(ez lehet FULL vagy INDIVIDUAL)
 
     public Player(String playerName, LocalDate birthDate, String motherName) {
         this.playerName = playerName;
@@ -52,10 +52,10 @@ public class Player {
 
     public void setValidity() {
         if (LocalDate.now().getMonthValue() > 6) {
-            this.setLicenseType(LicenseType.TELJESKÖRŰ);
+            this.setLicenseType(LicenseType.FULL);
             this.setLicenseValidityDate(LocalDate.of(LocalDate.now().getYear() + 1, 6, 30));
         } else {
-            this.setLicenseType(LicenseType.EGYÉNI);
+            this.setLicenseType(LicenseType.INDIVIDUAL);
             this.setLicenseValidityDate(LocalDate.of(LocalDate.now().getYear(), 6, 30));
         }
     }

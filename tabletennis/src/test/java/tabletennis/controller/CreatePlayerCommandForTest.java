@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreatePlayerCommandForTest {  // ez kizárólag a teszteléshez, hogy minden attribútumnak lehessen értéket adni
+public class CreatePlayerCommandForTest {  // ez kizárólag a teszteléshez, hogy  a tesztadat minden attribútumának lehessen értéket adni, létrehozni
 
     private String playerName;
     private LocalDate birthDate;

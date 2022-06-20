@@ -62,7 +62,7 @@ Content-Type: application/json
 }
 
 ### Egyesület módosítása
-POST http://localhost:8080/api/organizations/3
+PUT http://localhost:8080/api/organizations/3
 Content-Type: application/json
 
 {

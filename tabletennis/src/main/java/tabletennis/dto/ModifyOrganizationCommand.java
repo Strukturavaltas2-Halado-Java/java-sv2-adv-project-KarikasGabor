@@ -1,0 +1,24 @@
+package tabletennis.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import tabletennis.model.Player;
+
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+public class ModifyOrganizationCommand {
+
+    private long orgId;
+    private String orgName;
+    private String address;
+    private String contact;
+    private String email;
+    private String telNumber;
+    private List<Player> players;
+}

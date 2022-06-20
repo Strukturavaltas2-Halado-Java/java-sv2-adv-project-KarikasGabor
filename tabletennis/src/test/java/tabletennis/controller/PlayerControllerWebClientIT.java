@@ -2,12 +2,18 @@ package tabletennis.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import tabletennis.dto.*;
 import tabletennis.model.LicenseType;
+import tabletennis.repository.PlayerRepository;
+import tabletennis.service.TableTennisService;
 
 import java.time.*;
 
@@ -24,6 +30,15 @@ class PlayerControllerWebClientIT {
     long playerId;
     OrganizationDto organization;
 
+    @Mock
+    PlayerRepository playerRepository;
+
+    @Mock
+    PlayerController playerController;
+
+    @InjectMocks
+    TableTennisService service;
+
     @BeforeEach
     void setUp() {
         playerId = webTestClient.post()
@@ -36,7 +51,7 @@ class PlayerControllerWebClientIT {
 
                         LocalDate.of(2020, 9, 2),
                         LocalDate.of(2021, 6, 30),
-                        LicenseType.TELJESKÖRŰ))
+                        LicenseType.FULL))
                 .exchange()
                 .expectBody(PlayerDto.class).returnResult().getResponseBody().getPlayerId();
 
@@ -49,7 +64,7 @@ class PlayerControllerWebClientIT {
                         null,
                         LocalDate.of(2021, 9, 2),
                         LocalDate.of(2022, 6, 30),
-                        LicenseType.TELJESKÖRŰ))
+                        LicenseType.FULL))
                 .exchange();
 
         webTestClient.post()
@@ -61,7 +76,7 @@ class PlayerControllerWebClientIT {
                         null,
                         LocalDate.of(2022, 3, 1),
                         LocalDate.of(2022, 6, 30),
-                        LicenseType.EGYÉNI))
+                        LicenseType.INDIVIDUAL))
                 .exchange();
 
         organization = webTestClient.post()
@@ -182,20 +197,4 @@ class PlayerControllerWebClientIT {
                 .expectBody().jsonPath("$.title").isEqualTo("Validation error");
     }
 
-//    @Test
-//    void testValidateLicenseWithOlderDate() {
-//        LocalDate currentLocalDate = LocalDate.of(2023, 2, 13);
-//        LocalDate expected = LocalDate.of(2023, 6, 30);
-//        try (MockedStatic<LocalDate> topDateTimeUtilMock = Mockito.mockStatic(LocalDate.class)) {
-//            topDateTimeUtilMock.when(LocalDate::now).thenReturn(currentLocalDate);
-//            System.out.println(LocalDate.now());
-//            webTestClient.post()
-//                    .uri(uriBuilder -> uriBuilder.path("api/players/{id}").build(id))
-//                    .exchange()
-//                    .expectBody(PlayerDto.class)
-//                    .value(p -> System.out.println(service.now()))
-//                    .value(p -> assertEquals(expected, p.getLicenseValidityDate()));
-//
-//        }
-//    }
 }

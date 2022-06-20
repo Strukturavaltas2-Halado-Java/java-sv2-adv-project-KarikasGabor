@@ -78,7 +78,7 @@ public class TableTennisService {
         Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new OrganizationNotFoundException(orgId));
         OrganizationDto organizationDto = modelMapper.map(organization, OrganizationDto.class);
         organizationDto.setPlayers(organization.getPlayers().stream()
-                .filter(p -> full.isEmpty() || !full.get().equalsIgnoreCase("true") || p.getLicenseType().equals(LicenseType.TELJESKÖRŰ))
+                .filter(p -> full.isEmpty() || !full.get().equalsIgnoreCase("true") || p.getLicenseType().equals(LicenseType.FULL))
                 .filter(p -> valid.isEmpty() || !valid.get().equalsIgnoreCase("true") || p.getLicenseValidityDate().isAfter(LocalDate.now()))
                 .collect(Collectors.toList()));
         return organizationDto;
@@ -121,17 +121,14 @@ public class TableTennisService {
         }
     }
 
-    public OrganizationDto modifyOrganization(long orgId, CreateOrganizationCommand createOrganizationCommand) {
+    public OrganizationDto modifyOrganization(long orgId, ModifyOrganizationCommand modifyOrganizationCommand) {
         Organization organization = organizationRepository.findById(orgId).orElseThrow(() -> new OrganizationNotFoundException(orgId));
-        organization.setOrgName(createOrganizationCommand.getOrgName());
-        organization.setAddress(createOrganizationCommand.getAddress());
-        organization.setContact(createOrganizationCommand.getContact());
-        organization.setEmail(createOrganizationCommand.getEmail());
-        organization.setTelNumber(createOrganizationCommand.getTelNumber());
+        organization.setOrgName(modifyOrganizationCommand.getOrgName());
+        organization.setAddress(modifyOrganizationCommand.getAddress());
+        organization.setContact(modifyOrganizationCommand.getContact());
+        organization.setEmail(modifyOrganizationCommand.getEmail());
+        organization.setTelNumber(modifyOrganizationCommand.getTelNumber());
         return modelMapper.map(organization, OrganizationDto.class);
     }
 
-//    public LocalDate now() {
-//        return LocalDate.now();
-//    }
 }
