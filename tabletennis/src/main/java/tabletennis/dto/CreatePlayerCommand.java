@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import tabletennis.model.LicenseType;
-import tabletennis.model.Organization;
 import tabletennis.validation.Name;
 
 import javax.validation.constraints.Past;

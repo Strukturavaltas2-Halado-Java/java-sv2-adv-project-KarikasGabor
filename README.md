@@ -1,6 +1,6 @@
 # Vizsgaremek
 
-## Leírás
+## Leírás 
 
 Életem nagyrészt az asztaliteniszhez kötődik, jelenleg is a Magyar Asztalitenisz Szövetségben dolgozok.  
 Vizsgaremeknek a Szövetség nyilvántartó rendszerének egy egyszerűsített változatát választottam.
@@ -9,7 +9,7 @@ Vizsgaremeknek a Szövetség nyilvántartó rendszerének egy egyszerűsített v
 
 ## Felépítés
 
-### Entitás 1
+### Organization
 
 Az `Egyesület (Organization)` entitás a következő attribútumokkal rendelkezik:
 
@@ -34,7 +34,7 @@ Végpontok:
 
 ---
 
-### Entitás 2
+### Player
 
 A `Játékos (Player)` entitás a következő attribútumokkal rendelkezik:
 

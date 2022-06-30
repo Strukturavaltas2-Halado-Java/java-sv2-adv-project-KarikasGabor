@@ -23,23 +23,23 @@ public class Organization {
     private Long orgId;
 
     @Column(name = "org_name")
-    private String orgName; // (nem lehet üres)
+    private String orgName;
 
     @Column(name = "org_address")
-    private String address; // (nem lehet üres)
+    private String address;
 
     @Column(name = "contact")
-    private String contact; // (nem lehet üres, legalább 2 tagból áll)
+    private String contact;
 
     @Column(name = "email")
-    private String email; // (valid email formátum)
+    private String email;
 
     @Column(name = "tel_number")
-    private String telNumber; // (nem kötelező)
+    private String telNumber;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "organization")
-    private List<Player> players; //lista az egyesület igazolt játékosairól (players)
+    private List<Player> players;
 
     public Organization(String orgName, String address, String contact, String email, String telNumber) {
         this.orgName = orgName;

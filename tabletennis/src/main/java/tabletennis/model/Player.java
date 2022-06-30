@@ -24,10 +24,10 @@ public class Player {
     private String playerName;
 
     @Column(name = "player_birthdate")
-    private LocalDate birthDate; // (nem lehet későbbi az aktuális dátumnál)
+    private LocalDate birthDate;
 
     @Column(name = "player_mother")
-    private String motherName; // (nem lehet üres, legalább 2 tagból áll)
+    private String motherName;
 
     @ManyToOne
     @JoinColumn(name = "org_id")
@@ -35,14 +35,14 @@ public class Player {
     private Organization organization;
 
     @Column(name = "license_date")
-    private LocalDate licenseDate; //(leigazolás/átigazolás dátuma)
+    private LocalDate licenseDate;
 
     @Column(name = "license_validity_date")
-    private LocalDate licenseValidityDate; //játékengedély érvényessége
+    private LocalDate licenseValidityDate;
 
     @Column(name = "license_type")
     @Enumerated(EnumType.STRING)
-    private LicenseType licenseType; //(ez lehet FULL vagy INDIVIDUAL)
+    private LicenseType licenseType;
 
     public Player(String playerName, LocalDate birthDate, String motherName) {
         this.playerName = playerName;
